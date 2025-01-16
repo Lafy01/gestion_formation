@@ -14,7 +14,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        // Validation des données
         $validator = Validator::make($request->all(), [
             'email'    => 'required|email',
             'mdp' => 'required|string',
@@ -40,10 +39,12 @@ class AuthController extends Controller
             return response()->json(['error' => 'Could not create token'], 500);
         }
 
-        // Retourner le token JWT
         return response()->json([
-            'token' => $token,
-            'user' => $user
+            'data' => [
+                'token' => $token,
+                'user' => $user
+            ],
+            'message' => 'Login successful'
         ]);
     }
 
